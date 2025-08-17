@@ -16,7 +16,9 @@ interface FeaturePopover {
 
 export default function Features() {
   const [openSphere, setOpenSphere] = useState<number | null>(null);
-  const [activePopover, setActivePopover] = useState<FeaturePopover | null>(null);
+  const [activePopover, setActivePopover] = useState<FeaturePopover | null>(
+    null
+  );
   const [isMobile, setIsMobile] = useState(false);
 
   // Check if mobile
@@ -24,28 +26,31 @@ export default function Features() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const spheres = [
     {
       title: "Clarity in Chaos",
-      description: "Surface the signal in dark complexity with AI-assisted insights that help you navigate through overwhelming information and find what matters most. Our advanced algorithms filter noise and highlight critical patterns.",
+      description:
+        "Surface the signal in dark complexity with AI-assisted insights that help you navigate through overwhelming information and find what matters most. Our advanced algorithms filter noise and highlight critical patterns.",
       color: "mint" as const,
       floatClass: "animate-floatSlow",
     },
     {
       title: "Adaptive Glow",
-      description: "Micro-interactions that guide users without distraction, providing just the right amount of feedback at the perfect moment. Every hover, click, and transition feels intentional and delightful.",
+      description:
+        "Micro-interactions that guide users without distraction, providing just the right amount of feedback at the perfect moment. Every hover, click, and transition feels intentional and delightful.",
       color: "violet" as const,
       floatClass: "animate-floatMedium",
     },
     {
       title: "Secure by Design",
-      description: "Glass surfaces with clear affordances and strong contrast, ensuring both beauty and accessibility in every interaction. Built with privacy-first principles and enterprise-grade security.",
+      description:
+        "Glass surfaces with clear affordances and strong contrast, ensuring both beauty and accessibility in every interaction. Built with privacy-first principles and enterprise-grade security.",
       color: "magenta" as const,
       floatClass: "animate-floatFast",
     },
@@ -76,7 +81,11 @@ export default function Features() {
   };
 
   return (
-    <Section id="features" title="Interactive Features" className="overflow-hidden">
+    <Section
+      id="features"
+      title="Interactive Features"
+      className="overflow-hidden"
+    >
       <div className="text-center mb-12">
         <p className="text-textMuted text-lg mb-4">
           Hover and click the glowing spheres below to discover our core
@@ -90,15 +99,22 @@ export default function Features() {
       </div>
 
       {/* Main content area with dynamic height */}
-      <div className={cn(
-        "relative transition-all duration-500 ease-in-out",
-        // Dynamic height based on popover state
-        activePopover ? "min-h-[600px] md:min-h-[700px]" : "min-h-[400px] md:min-h-[500px]"
-      )}>
+      <div
+        className={cn(
+          "relative transition-all duration-500 ease-in-out",
+          // Dynamic height based on popover state
+          activePopover
+            ? "min-h-[600px] md:min-h-[700px]"
+            : "min-h-[400px] md:min-h-[500px]"
+        )}
+      >
         {/* Spheres Grid */}
         <div className="grid grid-cols-1 gap-8 md:gap-12 lg:gap-16 md:grid-cols-3 place-items-center relative mb-8">
           {spheres.map((sphere, index) => (
-            <div key={index} className="relative flex flex-col items-center justify-center min-h-[200px] md:min-h-[250px] w-full">
+            <div
+              key={index}
+              className="relative flex flex-col items-center justify-center min-h-[200px] md:min-h-[250px] w-full"
+            >
               <FloatingSphere
                 title={sphere.title}
                 description={sphere.description}
@@ -140,19 +156,24 @@ export default function Features() {
                     <p className="text-textMuted leading-relaxed mb-6 text-base md:text-lg">
                       {activePopover.description}
                     </p>
-                    <Link 
-                      href="#learn-more" 
+                    <Link
+                      href="#learn-more"
                       className="inline-flex items-center gap-2 text-auroraCyan font-medium hover:text-auroraMint transition-colors group"
                       onClick={closePopover}
                     >
                       Learn More
-                      <svg 
-                        className="w-4 h-4 transition-transform group-hover:translate-x-1" 
-                        fill="none" 
-                        stroke="currentColor" 
+                      <svg
+                        className="w-4 h-4 transition-transform group-hover:translate-x-1"
+                        fill="none"
+                        stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
                       </svg>
                     </Link>
                   </div>

@@ -34,10 +34,10 @@ export default function FloatingSphere({
       setIsMobile(window.innerWidth < 768);
       setIsExtraSmall(window.innerWidth < 400);
     };
-    
+
     checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   // Handle open/close and notify parent
@@ -57,7 +57,10 @@ export default function FloatingSphere({
   // Close when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
         if (open) {
           setOpen(false);
           onToggle?.(false);
@@ -66,23 +69,24 @@ export default function FloatingSphere({
     };
 
     if (open) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
     }
   }, [open, onToggle]);
 
   // Close on escape key
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && open) {
+      if (event.key === "Escape" && open) {
         setOpen(false);
         onToggle?.(false);
       }
     };
 
     if (open) {
-      document.addEventListener('keydown', handleEscape);
-      return () => document.removeEventListener('keydown', handleEscape);
+      document.addEventListener("keydown", handleEscape);
+      return () => document.removeEventListener("keydown", handleEscape);
     }
   }, [open, onToggle]);
 
@@ -112,7 +116,10 @@ export default function FloatingSphere({
   };
 
   return (
-    <div ref={containerRef} className="relative flex flex-col items-center group w-full">
+    <div
+      ref={containerRef}
+      className="relative flex flex-col items-center group w-full"
+    >
       {/* Hint text that appears on hover (only on larger screens) */}
       {!isMobile && !isExtraSmall && (
         <motion.div
@@ -135,11 +142,11 @@ export default function FloatingSphere({
             "animate-pulseSubtle border-2 border-auroraCyan/30",
             isHovered ? "opacity-100" : "opacity-0"
           )}
-          style={{ 
+          style={{
             ...getRingSize(),
-            top: "50%", 
-            left: "50%", 
-            transform: "translate(-50%, -50%)" 
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
           }}
         />
       )}
@@ -150,7 +157,7 @@ export default function FloatingSphere({
         onClick={handleToggle}
         onMouseEnter={() => !isMobile && !isExtraSmall && setIsHovered(true)}
         onMouseLeave={() => !isMobile && !isExtraSmall && setIsHovered(false)}
-        whileHover={{ scale: (isMobile || isExtraSmall) ? 1 : 1.04 }}
+        whileHover={{ scale: isMobile || isExtraSmall ? 1 : 1.04 }}
         whileTap={{ scale: 0.98 }}
         className={cn(
           "relative rounded-full transition-all duration-300 outline-none cursor-pointer mx-auto",
@@ -209,15 +216,17 @@ export default function FloatingSphere({
               >
                 <X className="h-4 w-4" />
               </button>
-              <h4 className={cn(
-                "font-heading text-white pr-8 mb-3",
-                isExtraSmall ? "text-base" : "text-lg"
-              )}>
+              <h4
+                className={cn(
+                  "font-heading text-white pr-8 mb-3",
+                  isExtraSmall ? "text-base" : "text-lg"
+                )}
+              >
                 {title}
               </h4>
               <p className="mb-4 leading-relaxed">{description}</p>
-              <Link 
-                href="#" 
+              <Link
+                href="#"
                 className="link-underline text-auroraCyan font-medium"
                 onClick={() => {
                   setOpen(false);
