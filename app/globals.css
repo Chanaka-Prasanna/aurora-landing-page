@@ -1,26 +1,149 @@
 @import "tailwindcss";
 
+/* Base color variables for CSS fallback and custom use */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0b0f19;
+  --foreground: #ffffff;
 }
 
+/* Tailwind v4 token map (kept names to match your components) */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Brand colors */
+  --color-backgroundLo: #0b0f19;
+  --color-backgroundHi: #0f172a;
+
+  --color-auroraMint: #34f5c5;
+  --color-auroraCyan: #22d3ee;
+  --color-auroraViolet: #a78bfa;
+  --color-auroraMagenta: #f472b6;
+
+  --color-neonLime: #a3ff12;
+  --color-neonCyan: #22d3ee;
+
+  --color-textPrimary: #ffffff;
+  --color-textSecondary: #c7d2fe;
+  --color-textMuted: #94a3b8;
+
+  /* Fonts from next/font variables */
+  --font-heading: var(--font-sora);
+  --font-body: var(--font-inter);
+
+  /* Shadows */
+  --drop-shadow-glow: 0 0 12px rgba(51, 255, 203, 0.35);
+  --drop-shadow-glowStrong: 0 0 24px rgba(51, 255, 203, 0.6);
+  --shadow-neon: 0 0 0 1.5px rgba(163, 255, 18, 0.8),
+    0 0 18px rgba(163, 255, 18, 0.35);
+  --shadow-glass: 0 1px 0 0 rgba(255, 255, 255, 0.18) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+
+  /* Animations as tokens so you can use classes like animate-aurora */
+  --animate-aurora: auroraMove 18s ease-in-out infinite;
+  --animate-float-slow: float 6s ease-in-out infinite;
+  --animate-float-medium: float 5s ease-in-out infinite;
+  --animate-float-fast: float 4s ease-in-out infinite;
+  --animate-pulse-subtle: pulseSubtle 3s ease-in-out infinite;
+
+  /* Backwards-compatible names to match your current classes */
+  --animate-floatSlow: var(--animate-float-slow);
+  --animate-floatMedium: var(--animate-float-medium);
+  --animate-floatFast: var(--animate-float-fast);
+  --animate-pulseSubtle: var(--animate-pulse-subtle);
 }
 
+/* Dark scheme hint */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b0f19;
+    --foreground: #ffffff;
   }
 }
 
+/* Keyframes */
+@keyframes auroraMove {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12%) translateX(6%) rotate(10deg);
+  }
+  100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+}
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@keyframes pulseSubtle {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(34, 211, 238, 0);
+  }
+}
+
+/* Global canvas */
+html,
+body,
+:root {
+  height: 100%;
+  background: radial-gradient(
+      1200px 600px at 50% -10%,
+      rgba(167, 139, 250, 0.08),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      var(--color-backgroundLo) 0%,
+      var(--color-backgroundHi) 100%
+    );
+  color: var(--color-textPrimary);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply font-body antialiased;
+}
+
+/* Glass helper */
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Thin neon border with subtle glow */
+.neon-border {
+  box-shadow: 0 0 0 1.5px rgba(34, 211, 238, 0.75),
+    0 0 16px rgba(34, 211, 238, 0.35);
+}
+
+/* Underline grow */
+.link-underline {
+  background: linear-gradient(currentColor, currentColor) bottom left / 0% 1px
+    no-repeat;
+  transition: background-size 200ms ease;
+}
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+/* Focus ring */
+:where(a, button, [role="button"], [data-focusable="true"]) {
+  outline: none;
+}
+:where(a, button, [role="button"], [data-focusable="true"]):focus-visible {
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.6),
+    0 0 0 6px rgba(34, 211, 238, 0.2);
+  border-radius: 9999px;
 }
